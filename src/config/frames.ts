@@ -10,32 +10,6 @@ import snoopyTilesShadow from '../assets/frames/snoopy-tiles-shadow.png';
 import snoopyStars from '../assets/frames/snoopy-stars.png';
 import snoopySpace from '../assets/frames/snoopy-space.png';
 
-/**
- * Three-photo Snoopy strip slot layouts (in the 707×2000 frame's pixel space).
- *
- * The frame artwork IS the background — slot rects line up with the
- * "sky+grass" windows in each PNG. User photos draw on top of those.
- *
- * Slot dimensions detected from the source PNGs; tweak here to fine-tune.
- */
-const SNOOPY_SLOTS_STANDARD = [
-  { x: 34, y: 148, width: 640, height: 470 },
-  { x: 34, y: 680, width: 640, height: 470 },
-  { x: 34, y: 1212, width: 640, height: 470 },
-];
-
-const SNOOPY_SLOTS_STARS = [
-  { x: 34, y: 145, width: 640, height: 472 },
-  { x: 34, y: 686, width: 640, height: 472 },
-  { x: 34, y: 1227, width: 640, height: 472 },
-];
-
-const SNOOPY_SLOTS_SPACE = [
-  { x: 35, y: 147, width: 637, height: 468 },
-  { x: 35, y: 688, width: 637, height: 468 },
-  { x: 35, y: 1229, width: 637, height: 468 },
-];
-
 export const frames: FrameConfig[] = [
   {
     id: 'snoopy-tiles',
@@ -44,7 +18,11 @@ export const frames: FrameConfig[] = [
     output: { width: 707, height: 2000 },
     background: { image: snoopyTiles },
     revealAnimation: 'strip-print',
-    slots: SNOOPY_SLOTS_STANDARD,
+    slots: [
+      { x: 33, y: 148, width: 634, height: 470 },
+      { x: 33, y: 680, width: 634, height: 470 },
+      { x: 33, y: 1212, width: 634, height: 470 },
+    ],
   },
   {
     id: 'snoopy-tiles-shadow',
@@ -53,7 +31,11 @@ export const frames: FrameConfig[] = [
     output: { width: 707, height: 2000 },
     background: { image: snoopyTilesShadow },
     revealAnimation: 'strip-print',
-    slots: SNOOPY_SLOTS_STANDARD,
+    slots: [
+      { x: 33, y: 148, width: 636, height: 470 },
+      { x: 33, y: 680, width: 636, height: 470 },
+      { x: 33, y: 1212, width: 636, height: 470 },
+    ],
   },
   {
     id: 'snoopy-stars',
@@ -62,7 +44,11 @@ export const frames: FrameConfig[] = [
     output: { width: 707, height: 2000 },
     background: { image: snoopyStars },
     revealAnimation: 'strip-print',
-    slots: SNOOPY_SLOTS_STARS,
+    slots: [
+      { x: 34, y: 145, width: 633, height: 472 },
+      { x: 34, y: 686, width: 635, height: 472 },
+      { x: 34, y: 1227, width: 634, height: 472 },
+    ],
   },
   {
     id: 'snoopy-space',
@@ -71,7 +57,11 @@ export const frames: FrameConfig[] = [
     output: { width: 707, height: 2000 },
     background: { image: snoopySpace },
     revealAnimation: 'strip-print',
-    slots: SNOOPY_SLOTS_SPACE,
+    slots: [
+      { x: 33, y: 147, width: 636, height: 468 },
+      { x: 33, y: 688, width: 636, height: 468 },
+      { x: 34, y: 1229, width: 636, height: 468 },
+    ],
   },
   {
     id: 'strip-classic',
@@ -82,10 +72,10 @@ export const frames: FrameConfig[] = [
     background: { color: '#ffffff' },
     revealAnimation: 'strip-print',
     slots: [
-      { x: 40, y: 40, width: 520, height: 390 },
-      { x: 40, y: 460, width: 520, height: 390 },
-      { x: 40, y: 880, width: 520, height: 390 },
-      { x: 40, y: 1300, width: 520, height: 390 },
+      { x: 40, y: 44, width: 513, height: 390 },
+      { x: 40, y: 463, width: 515, height: 387 },
+      { x: 40, y: 879, width: 515, height: 388 },
+      { x: 40, y: 1296, width: 515, height: 390 },
     ],
   },
   {
@@ -106,10 +96,11 @@ export const frames: FrameConfig[] = [
     output: { width: 1200, height: 800 },
     background: { color: '#1e1e26' },
     revealAnimation: 'fade-in',
+    // Slots clear the top title band (y < 92) and bottom credit (y > 760).
     slots: [
-      { x: 40, y: 40, width: 560, height: 720 },
-      { x: 620, y: 40, width: 540, height: 350, rotation: -2 },
-      { x: 620, y: 410, width: 540, height: 350, rotation: 1.5 },
+      { x: 40, y: 100, width: 560, height: 660 },
+      { x: 620, y: 100, width: 540, height: 310, rotation: -2 },
+      { x: 620, y: 440, width: 540, height: 320, rotation: 1.5 },
     ],
   },
 ];

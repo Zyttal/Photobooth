@@ -1,11 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="480" height="320">
   <rect width="1200" height="800" fill="#1e1e26"/>
-  <rect x="40" y="40" width="560" height="720" fill="#c8c4bd"/>
-  <g transform="rotate(-2 890 215)">
-    <rect x="620" y="40" width="540" height="350" fill="#b6b6bf"/>
+  <text x="40" y="56" font-family="Courier New, monospace" font-weight="bold" font-size="34" fill="#fff" letter-spacing="8">★ TRIO</text>
+  <line x1="40" y1="78" x2="1160" y2="78" stroke="#ffffff" stroke-opacity="0.25" stroke-width="1"/>
+  <rect x="40" y="100" width="560" height="660" fill="#c8c4bd"/>
+  <g transform="rotate(-2 890 255)">
+    <rect x="620" y="100" width="540" height="310" fill="#b6b6bf"/>
   </g>
-  <g transform="rotate(1.5 890 585)">
-    <rect x="620" y="410" width="540" height="350" fill="#a4a4ad"/>
+  <g transform="rotate(1.5 890 600)">
+    <rect x="620" y="440" width="540" height="320" fill="#a4a4ad"/>
   </g>
-  <text x="40" y="40" font-family="Courier New, monospace" font-weight="bold" font-size="22" fill="#fff" letter-spacing="4">★ TRIO</text>
+  <line x1="40" y1="772" x2="1160" y2="772" stroke="#ffffff" stroke-opacity="0.25" stroke-width="1"/>
 </svg>
