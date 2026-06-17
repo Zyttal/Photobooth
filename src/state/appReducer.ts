@@ -2,6 +2,7 @@ import type { AppState, AppStep, SlotImage, SlotTransform } from '../types';
 
 export type Action =
   | { type: 'selectFrame'; frameId: string; slotCount: number }
+  | { type: 'swapFrame'; frameId: string; slotCount: number }
   | { type: 'goto'; step: AppStep }
   | { type: 'setSlotImage'; index: number; image: SlotImage }
   | { type: 'clearSlotImage'; index: number }
@@ -25,6 +26,19 @@ export function appReducer(state: AppState, action: Action): AppState {
         slotImages: Array(action.slotCount).fill(null),
         activeSlot: 0,
       };
+
+    case 'swapFrame': {
+      // Keep existing slot images, pad with nulls (or trim) to match new slot count.
+      const next: (SlotImage | null)[] = Array(action.slotCount).fill(null);
+      const carry = Math.min(state.slotImages.length, action.slotCount);
+      for (let i = 0; i < carry; i++) next[i] = state.slotImages[i];
+      return {
+        ...state,
+        frameId: action.frameId,
+        slotImages: next,
+        activeSlot: 0,
+      };
+    }
 
     case 'goto':
       return { ...state, step: action.step };

@@ -7,6 +7,7 @@ import { downloadBlob } from '../utils/download';
 import { makeThumbnail } from '../utils/thumbnail';
 import { savePhoto } from '../utils/storage';
 import { useShare } from '../hooks/useShare';
+import { frames } from '../config/frames';
 
 type Props = {
   state: AppState;
@@ -109,6 +110,35 @@ export function PreviewScreen({ state, frame, dispatch }: Props) {
         {saveState === 'failed' && (
           <span className="warning">Couldn't save to gallery — download still works.</span>
         )}
+      </div>
+
+      <div className="frame-swap" aria-label="Try another frame">
+        <span className="frame-swap-label">Try another frame</span>
+        <ul className="frame-swap-strip">
+          {frames.map((f) => (
+            <li key={f.id}>
+              <button
+                type="button"
+                className={`frame-swap-tile ${f.id === frame.id ? 'active' : ''}`}
+                onClick={() => {
+                  // Re-save flag flips so next mount auto-saves the new composite.
+                  savedOnceRef.current = false;
+                  setSaveState('pending');
+                  setSavedId(null);
+                  dispatch({
+                    type: 'swapFrame',
+                    frameId: f.id,
+                    slotCount: f.slots.length,
+                  });
+                }}
+                aria-label={f.name}
+                title={f.name}
+              >
+                <img src={f.thumbnail} alt="" loading="lazy" />
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
 
       <div className="preview-actions">

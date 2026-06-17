@@ -19,9 +19,9 @@ export const frames: FrameConfig[] = [
     background: { image: snoopyTiles },
     revealAnimation: 'strip-print',
     slots: [
-      { x: 33, y: 148, width: 634, height: 470 },
-      { x: 33, y: 680, width: 634, height: 470 },
-      { x: 33, y: 1212, width: 634, height: 470 },
+      { x: 33, y: 148, width: 641, height: 470 },
+      { x: 33, y: 680, width: 641, height: 470 },
+      { x: 33, y: 1212, width: 641, height: 470 },
     ],
   },
   {
@@ -32,9 +32,9 @@ export const frames: FrameConfig[] = [
     background: { image: snoopyTilesShadow },
     revealAnimation: 'strip-print',
     slots: [
-      { x: 33, y: 148, width: 636, height: 470 },
-      { x: 33, y: 680, width: 636, height: 470 },
-      { x: 33, y: 1212, width: 636, height: 470 },
+      { x: 33, y: 148, width: 641, height: 470 },
+      { x: 33, y: 680, width: 641, height: 470 },
+      { x: 33, y: 1212, width: 641, height: 470 },
     ],
   },
   {
@@ -45,9 +45,9 @@ export const frames: FrameConfig[] = [
     background: { image: snoopyStars },
     revealAnimation: 'strip-print',
     slots: [
-      { x: 34, y: 145, width: 633, height: 472 },
-      { x: 34, y: 686, width: 635, height: 472 },
-      { x: 34, y: 1227, width: 634, height: 472 },
+      { x: 33, y: 145, width: 641, height: 472 },
+      { x: 33, y: 686, width: 641, height: 472 },
+      { x: 33, y: 1227, width: 641, height: 472 },
     ],
   },
   {
@@ -58,9 +58,9 @@ export const frames: FrameConfig[] = [
     background: { image: snoopySpace },
     revealAnimation: 'strip-print',
     slots: [
-      { x: 33, y: 147, width: 636, height: 468 },
-      { x: 33, y: 688, width: 636, height: 468 },
-      { x: 34, y: 1229, width: 636, height: 468 },
+      { x: 35, y: 147, width: 637, height: 468 },
+      { x: 35, y: 688, width: 637, height: 468 },
+      { x: 35, y: 1229, width: 637, height: 468 },
     ],
   },
   {
