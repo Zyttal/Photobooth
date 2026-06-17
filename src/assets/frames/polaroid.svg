@@ -17,7 +17,7 @@
   <!-- Caption: friendlier handwriting + accent doodle. -->
   <g transform="translate(400 855)" font-family="'Bradley Hand', 'Comic Sans MS', 'Marker Felt', cursive">
     <text text-anchor="middle" font-size="48" fill="#1f1f23">today, captured ✿</text>
-    <text text-anchor="middle" y="48" font-size="22" fill="#7a7770" letter-spacing="3">— photobooth —</text>
+    <text text-anchor="middle" y="48" font-size="22" fill="#7a7770" letter-spacing="3">· photobooth ·</text>
   </g>
 
   <!-- Tiny corner doodles for warmth -->

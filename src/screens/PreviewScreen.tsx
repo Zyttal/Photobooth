@@ -108,7 +108,7 @@ export function PreviewScreen({ state, frame, dispatch, allFrames }: Props) {
           <span className="success">✓ Saved to gallery</span>
         )}
         {saveState === 'failed' && (
-          <span className="warning">Couldn't save to gallery — download still works.</span>
+          <span className="warning">Couldn't save to gallery. Download still works.</span>
         )}
       </div>
 

@@ -1,6 +1,6 @@
 # Photobooth
 
-A frontend-only photobooth web app. Pick a frame, snap or upload photos, and compose them into a downloadable, shareable image. Mobile-first. Everything runs on the device — no backend.
+A frontend-only photobooth web app. Pick a frame, snap or upload photos, and compose them into a downloadable, shareable image. Mobile-first. Everything runs on the device : no backend.
 
 Built with Vite 7 + React 19 + TypeScript.
 
@@ -18,7 +18,7 @@ npm run build && npm run preview
 ```
 src/
   App.tsx                shell: reducer + screen switch
-  config/frames.ts       frame definitions — edit here to add new ones
+  config/frames.ts       frame definitions : edit here to add new ones
   types/                 shared TS types
   state/                 reducer for the main flow
   screens/               Home / Capture / Adjust / Preview / Gallery
@@ -47,7 +47,7 @@ Privacy is a first-class feature here:
 
 - **No network requests** after the initial bundle. No analytics, no telemetry, no external scripts.
 - **All photos and gallery data live in the browser** on the user's device, in IndexedDB (`photobooth.photos`). Clearing browser data for the site wipes them.
-- **Camera stream is explicitly stopped** the moment the user leaves the capture screen — the device indicator light turns off immediately.
+- **Camera stream is explicitly stopped** the moment the user leaves the capture screen : the device indicator light turns off immediately.
 - A privacy banner on the Home screen and a header note on the Gallery screen make this explicit to the user.
 - Delete confirmations spell out that deletions are permanent.
 

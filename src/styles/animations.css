@@ -3,7 +3,7 @@
  *
  * Animation classes can be referenced by name from frame configs (e.g.
  * `revealAnimation: 'polaroid-develop'`). New keyframes go at the bottom of
- * this file — keep names lowercase-kebab, prefer keyframes over JS for
+ * this file. Keep names lowercase-kebab, prefer keyframes over JS for
  * anything timing-related.
  * --------------------------------------------------------------------------*/
 
@@ -1086,21 +1086,16 @@
   color: var(--accent);
 }
 .author-credit {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
   text-decoration: none;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 0.5px;
-  padding: 6px 12px;
-  border-radius: var(--radius-pill);
-  transition: background-color var(--anim-fast) ease, color var(--anim-fast) ease;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+  transition: color var(--anim-fast) ease;
 }
 .author-credit:hover {
-  background: var(--accent-soft);
-  color: var(--accent-strong);
+  color: var(--text);
 }
 
 /* --- Mobile breakpoints -------------------------------------------------- */

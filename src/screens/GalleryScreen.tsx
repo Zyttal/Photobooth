@@ -58,7 +58,7 @@ export function GalleryScreen({ dispatch }: Props) {
 
       {!loading && !error && photos.length === 0 && (
         <div className="empty-state">
-          <p>No photos yet — create one to get started.</p>
+          <p>No photos yet. Create one to get started.</p>
           <button
             type="button"
             className="btn btn-primary"

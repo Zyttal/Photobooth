@@ -291,7 +291,7 @@ function EditorForFrame({
           +
         </button>
         <span className="muted editor-zoombar-hint">
-          Editor zoom — scroll the stage to pan when zoomed in.
+          Editor zoom. Scroll the stage to pan when zoomed in.
         </span>
       </div>
 

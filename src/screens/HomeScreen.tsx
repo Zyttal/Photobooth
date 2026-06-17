@@ -53,7 +53,7 @@ export function HomeScreen({ dispatch, allFrames, customIds, onRemoveCustom }: P
       {privacyOpen && (
         <div className="privacy-banner" role="note">
           <span>
-            Your photos stay on this device. Nothing is uploaded — no servers, no tracking.
+            Your photos stay on this device. Nothing is uploaded. No servers, no tracking.
           </span>
           <button
             type="button"
@@ -67,19 +67,6 @@ export function HomeScreen({ dispatch, allFrames, customIds, onRemoveCustom }: P
       )}
 
       <section className="frame-grid" aria-label="Choose a frame">
-        <button
-          type="button"
-          className="frame-card frame-card-add"
-          onClick={() => dispatch({ type: 'goto', step: 'add-frame' })}
-        >
-          <div className="frame-card-thumb frame-card-add-thumb">
-            <span aria-hidden="true">+</span>
-          </div>
-          <div className="frame-card-meta">
-            <span className="frame-card-name">Add a frame</span>
-            <span className="frame-card-slots">Upload your own</span>
-          </div>
-        </button>
         {allFrames.map((frame) => (
           <div key={frame.id} className="frame-card-wrap">
             <FrameCard
@@ -108,16 +95,29 @@ export function HomeScreen({ dispatch, allFrames, customIds, onRemoveCustom }: P
             )}
           </div>
         ))}
+        <button
+          type="button"
+          className="frame-card frame-card-add"
+          onClick={() => dispatch({ type: 'goto', step: 'add-frame' })}
+        >
+          <div className="frame-card-thumb frame-card-add-thumb">
+            <span aria-hidden="true">+</span>
+          </div>
+          <div className="frame-card-meta">
+            <span className="frame-card-name">Add a frame</span>
+            <span className="frame-card-slots">Upload your own</span>
+          </div>
+        </button>
       </section>
 
       <footer className="home-footer">
         <a
-          className="text-link author-credit"
+          className="author-credit"
           href="https://github.com/Zyttal"
           target="_blank"
           rel="noopener noreferrer"
         >
-          made with ♥ by Zyttal
+          Made by Zyttal
         </a>
       </footer>
 

@@ -62,7 +62,7 @@ export function useCustomFrames(): {
         thumbUrl: URL.createObjectURL(cf.thumbnail),
       }));
       setLoaded((prev) => {
-        // Old URLs are no longer referenced — revoke them on a delay so any
+        // Old URLs are no longer referenced. Revoke them on a delay so any
         // in-flight image fetches finish first.
         for (const l of prev) {
           revokeLater(l.bgUrl);

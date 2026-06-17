@@ -117,7 +117,7 @@ export function AddFrameScreen({ dispatch, onSave }: Props) {
         </header>
         <p className="muted editor-hint">
           Upload an image you want to use as a frame. PNG, JPEG, or SVG. Your
-          file stays on this device — nothing is uploaded anywhere.
+          file stays on this device. Nothing is uploaded anywhere.
         </p>
         <div className="upload-area">
           <input

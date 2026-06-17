@@ -137,7 +137,7 @@ export function CaptureScreen({ state, frame, dispatch }: Props) {
         <StepIndicator
           current={filledCount + 1}
           total={totalSlots}
-          label={`${frame.name} — slot ${activeSlot + 1}`}
+          label={`${frame.name} · slot ${activeSlot + 1}`}
         />
         <span />
       </header>
