@@ -111,13 +111,14 @@ export function HomeScreen({ dispatch, allFrames, customIds, onRemoveCustom }: P
       </section>
 
       <footer className="home-footer">
-        <button
-          type="button"
-          className="text-link"
-          onClick={() => dispatch({ type: 'goto', step: 'edit' })}
+        <a
+          className="text-link author-credit"
+          href="https://github.com/Zyttal"
+          target="_blank"
+          rel="noopener noreferrer"
         >
-          Calibrate built-in frame slots
-        </button>
+          made with ♥ by Zyttal
+        </a>
       </footer>
 
       {confirmDelete && (

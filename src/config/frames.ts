@@ -6,7 +6,6 @@ import polaroidThumb from '../assets/frames/polaroid-thumb.svg';
 import collageOverlay from '../assets/frames/collage-3.svg';
 import collageThumb from '../assets/frames/collage-3-thumb.svg';
 import snoopyTiles from '../assets/frames/snoopy-tiles.png';
-import snoopyTilesShadow from '../assets/frames/snoopy-tiles-shadow.png';
 import snoopyStars from '../assets/frames/snoopy-stars.png';
 import snoopySpace from '../assets/frames/snoopy-space.png';
 
@@ -17,19 +16,6 @@ export const frames: FrameConfig[] = [
     thumbnail: snoopyTiles,
     output: { width: 707, height: 2000 },
     background: { image: snoopyTiles },
-    revealAnimation: 'strip-print',
-    slots: [
-      { x: 33, y: 148, width: 641, height: 470 },
-      { x: 33, y: 680, width: 641, height: 470 },
-      { x: 33, y: 1212, width: 641, height: 470 },
-    ],
-  },
-  {
-    id: 'snoopy-tiles-shadow',
-    name: 'Snoopy Café',
-    thumbnail: snoopyTilesShadow,
-    output: { width: 707, height: 2000 },
-    background: { image: snoopyTilesShadow },
     revealAnimation: 'strip-print',
     slots: [
       { x: 33, y: 148, width: 641, height: 470 },
