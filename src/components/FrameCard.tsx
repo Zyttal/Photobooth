@@ -15,7 +15,7 @@ export function FrameCard({ frame, onSelect }: Props) {
       aria-label={`Choose ${frame.name}`}
     >
       <div className="frame-card-thumb">
-        <img src={frame.thumbnail} alt="" />
+        {frame.thumbnail && <img src={frame.thumbnail} alt="" />}
       </div>
       <div className="frame-card-meta">
         <span className="frame-card-name">{frame.name}</span>

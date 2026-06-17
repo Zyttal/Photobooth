@@ -221,18 +221,30 @@ function EditorStage({
   );
 
   const addSlot = useCallback(() => {
-    const w = Math.round(imageDims.width * 0.4);
-    const h = Math.round(imageDims.height * 0.4);
-    const offset = slots.length * 30;
+    // Use the currently-selected slot as a template (or a sensible default
+    // if there isn't one yet). New slot is offset diagonally so it's visible
+    // as a separate rectangle next to the original.
+    const reference: SlotConfig =
+      slots[selected] ?? {
+        x: Math.round(imageDims.width * 0.1),
+        y: Math.round(imageDims.height * 0.1),
+        width: Math.round(imageDims.width * 0.4),
+        height: Math.round(imageDims.height * 0.4),
+      };
+    const offset = Math.max(
+      24,
+      Math.round(Math.min(reference.width, reference.height) * 0.08),
+    );
+    const maxX = Math.max(0, imageDims.width - reference.width);
+    const maxY = Math.max(0, imageDims.height - reference.height);
     const next: SlotConfig = {
-      x: Math.round(imageDims.width * 0.1) + offset,
-      y: Math.round(imageDims.height * 0.1) + offset,
-      width: w,
-      height: h,
+      ...reference,
+      x: Math.min(reference.x + offset, maxX),
+      y: Math.min(reference.y + offset, maxY),
     };
     onSlotsChange([...slots, next]);
     onSelectedChange(slots.length);
-  }, [imageDims, slots, onSlotsChange, onSelectedChange]);
+  }, [imageDims, slots, selected, onSlotsChange, onSelectedChange]);
 
   const removeSlot = useCallback(() => {
     if (slots.length <= 1) return;

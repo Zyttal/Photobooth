@@ -6,12 +6,23 @@ import {
   saveCustomFrame,
 } from '../utils/customFrameStorage';
 
-type UrlPair = { bg: string; thumb: string };
+type LoadedFrame = {
+  raw: CustomFrame;
+  bgUrl: string;
+  thumbUrl: string;
+};
+
+/** Delay matches useObjectUrl's StrictMode-safe revoke. */
+const REVOKE_DELAY_MS = 1500;
+
+function revokeLater(url: string): void {
+  window.setTimeout(() => URL.revokeObjectURL(url), REVOKE_DELAY_MS);
+}
 
 /**
  * Loads custom frames from IndexedDB and exposes them as runtime FrameConfigs
- * (Blob refs swapped for object URLs). Manages URL lifecycle so old URLs are
- * revoked when frames change or unmount.
+ * with object URLs ready to use. URLs are created in the same setState as the
+ * raw frames, so the first render after load already has working URLs.
  */
 export function useCustomFrames(): {
   customFrames: FrameConfig[];
@@ -21,18 +32,53 @@ export function useCustomFrames(): {
   save: (frame: CustomFrame) => Promise<void>;
   remove: (id: string) => Promise<void>;
 } {
-  const [raw, setRaw] = useState<CustomFrame[]>([]);
+  const [loaded, setLoaded] = useState<LoadedFrame[]>([]);
   const [loading, setLoading] = useState(true);
-  const urlMapRef = useRef<Map<string, UrlPair>>(new Map());
+  const loadedRef = useRef<LoadedFrame[]>([]);
+
+  // Mirror state into a ref so unmount cleanup can see the latest URLs.
+  useEffect(() => {
+    loadedRef.current = loaded;
+  }, [loaded]);
+
+  // Revoke everything on unmount.
+  useEffect(
+    () => () => {
+      for (const l of loadedRef.current) {
+        revokeLater(l.bgUrl);
+        revokeLater(l.thumbUrl);
+      }
+    },
+    [],
+  );
 
   const refresh = useCallback(async () => {
     setLoading(true);
     try {
       const list = await listCustomFrames();
-      setRaw(list);
+      const next = list.map((cf) => ({
+        raw: cf,
+        bgUrl: URL.createObjectURL(cf.background),
+        thumbUrl: URL.createObjectURL(cf.thumbnail),
+      }));
+      setLoaded((prev) => {
+        // Old URLs are no longer referenced — revoke them on a delay so any
+        // in-flight image fetches finish first.
+        for (const l of prev) {
+          revokeLater(l.bgUrl);
+          revokeLater(l.thumbUrl);
+        }
+        return next;
+      });
     } catch (err) {
       console.error('Failed to load custom frames', err);
-      setRaw([]);
+      setLoaded((prev) => {
+        for (const l of prev) {
+          revokeLater(l.bgUrl);
+          revokeLater(l.thumbUrl);
+        }
+        return [];
+      });
     } finally {
       setLoading(false);
     }
@@ -42,57 +88,21 @@ export function useCustomFrames(): {
     void refresh();
   }, [refresh]);
 
-  // Maintain object URLs in lockstep with `raw`.
-  useEffect(() => {
-    const map = urlMapRef.current;
-    const liveIds = new Set(raw.map((f) => f.id));
-
-    // Revoke URLs for frames that disappeared.
-    for (const [id, pair] of map.entries()) {
-      if (!liveIds.has(id)) {
-        URL.revokeObjectURL(pair.bg);
-        URL.revokeObjectURL(pair.thumb);
-        map.delete(id);
-      }
-    }
-
-    // Create URLs for new frames.
-    for (const f of raw) {
-      if (!map.has(f.id)) {
-        map.set(f.id, {
-          bg: URL.createObjectURL(f.background),
-          thumb: URL.createObjectURL(f.thumbnail),
-        });
-      }
-    }
-  }, [raw]);
-
-  useEffect(
-    () => () => {
-      // Revoke everything on unmount.
-      for (const pair of urlMapRef.current.values()) {
-        URL.revokeObjectURL(pair.bg);
-        URL.revokeObjectURL(pair.thumb);
-      }
-      urlMapRef.current.clear();
-    },
-    [],
+  const customFrames = useMemo<FrameConfig[]>(
+    () =>
+      loaded.map((l) => ({
+        id: l.raw.id,
+        name: l.raw.name,
+        thumbnail: l.thumbUrl,
+        background: { image: l.bgUrl },
+        output: l.raw.output,
+        slots: l.raw.slots,
+        revealAnimation: l.raw.revealAnimation ?? 'fade-in',
+      })),
+    [loaded],
   );
 
-  const customFrames = useMemo<FrameConfig[]>(() => {
-    return raw.map((cf) => {
-      const urls = urlMapRef.current.get(cf.id);
-      return {
-        id: cf.id,
-        name: cf.name,
-        thumbnail: urls?.thumb ?? '',
-        background: { image: urls?.bg ?? '' },
-        output: cf.output,
-        slots: cf.slots,
-        revealAnimation: cf.revealAnimation ?? 'fade-in',
-      };
-    });
-  }, [raw]);
+  const rawCustomFrames = useMemo(() => loaded.map((l) => l.raw), [loaded]);
 
   const save = useCallback(
     async (frame: CustomFrame) => {
@@ -110,5 +120,5 @@ export function useCustomFrames(): {
     [refresh],
   );
 
-  return { customFrames, rawCustomFrames: raw, loading, refresh, save, remove };
+  return { customFrames, rawCustomFrames, loading, refresh, save, remove };
 }
