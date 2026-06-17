@@ -6,6 +6,7 @@ export type Action =
   | { type: 'goto'; step: AppStep }
   | { type: 'setSlotImage'; index: number; image: SlotImage }
   | { type: 'clearSlotImage'; index: number }
+  | { type: 'swapSlots'; a: number; b: number }
   | { type: 'updateSlotTransform'; index: number; transform: SlotTransform }
   | { type: 'setActiveSlot'; index: number }
   | { type: 'reset' };
@@ -59,6 +60,15 @@ export function appReducer(state: AppState, action: Action): AppState {
     case 'clearSlotImage': {
       const next = state.slotImages.slice();
       next[action.index] = null;
+      return { ...state, slotImages: next };
+    }
+
+    case 'swapSlots': {
+      if (action.a === action.b) return state;
+      const next = state.slotImages.slice();
+      const tmp = next[action.a] ?? null;
+      next[action.a] = next[action.b] ?? null;
+      next[action.b] = tmp;
       return { ...state, slotImages: next };
     }
 

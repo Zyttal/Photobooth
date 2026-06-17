@@ -40,15 +40,15 @@ function App() {
         <CaptureScreen state={state} frame={frame} dispatch={dispatch} />
       )}
       {state.step === 'adjust' && frame && (
-        <AdjustScreen state={state} frame={frame} dispatch={dispatch} />
-      )}
-      {state.step === 'preview' && frame && (
-        <PreviewScreen
+        <AdjustScreen
           state={state}
           frame={frame}
           dispatch={dispatch}
           allFrames={allFrames}
         />
+      )}
+      {state.step === 'preview' && frame && (
+        <PreviewScreen state={state} frame={frame} dispatch={dispatch} />
       )}
       {state.step === 'gallery' && <GalleryScreen dispatch={dispatch} />}
       {state.step === 'edit' && <FrameEditorScreen dispatch={dispatch} />}
