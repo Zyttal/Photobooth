@@ -6,6 +6,7 @@ export type Action =
   | { type: 'goto'; step: AppStep }
   | { type: 'setSlotImage'; index: number; image: SlotImage }
   | { type: 'clearSlotImage'; index: number }
+  | { type: 'swapSlots'; a: number; b: number }
   | { type: 'updateSlotTransform'; index: number; transform: SlotTransform }
   | { type: 'setActiveSlot'; index: number }
   | { type: 'reset' };
@@ -28,10 +29,17 @@ export function appReducer(state: AppState, action: Action): AppState {
       };
 
     case 'swapFrame': {
-      // Keep existing slot images, pad with nulls (or trim) to match new slot count.
-      const next: (SlotImage | null)[] = Array(action.slotCount).fill(null);
-      const carry = Math.min(state.slotImages.length, action.slotCount);
-      for (let i = 0; i < carry; i++) next[i] = state.slotImages[i];
+      // Preserve every captured image. The slotImages array grows to the
+      // larger of the previous length and the new frame's slot count, so
+      // swapping to a smaller frame doesn't drop the tail. Swapping back to
+      // a larger frame brings those photos back into view. Iterators consume
+      // frame.slots, not slotImages.length, so any indices past the current
+      // frame's slot count are simply not rendered (but still kept in state).
+      const targetLen = Math.max(state.slotImages.length, action.slotCount);
+      const next: (SlotImage | null)[] = new Array(targetLen).fill(null);
+      for (let i = 0; i < state.slotImages.length; i++) {
+        next[i] = state.slotImages[i];
+      }
       return {
         ...state,
         frameId: action.frameId,
@@ -52,6 +60,15 @@ export function appReducer(state: AppState, action: Action): AppState {
     case 'clearSlotImage': {
       const next = state.slotImages.slice();
       next[action.index] = null;
+      return { ...state, slotImages: next };
+    }
+
+    case 'swapSlots': {
+      if (action.a === action.b) return state;
+      const next = state.slotImages.slice();
+      const tmp = next[action.a] ?? null;
+      next[action.a] = next[action.b] ?? null;
+      next[action.b] = tmp;
       return { ...state, slotImages: next };
     }
 

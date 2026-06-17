@@ -10,7 +10,10 @@ type GestureState = {
   startDistance: number;
 };
 
-const MIN_SCALE = 0.5;
+// Image must always cover its slot. MIN_SCALE = 1 means cover-fit (no
+// shrinking below the slot). SlotPreview additionally clamps pan offsets
+// so the image edges can't drift inside the slot boundary even when scaled.
+const MIN_SCALE = 1;
 const MAX_SCALE = 4;
 
 export function useSlotTransform(

@@ -12,12 +12,11 @@ type Props = {
   state: AppState;
   frame: FrameConfig;
   dispatch: React.Dispatch<Action>;
-  allFrames: FrameConfig[];
 };
 
 type SaveState = 'pending' | 'saved' | 'failed';
 
-export function PreviewScreen({ state, frame, dispatch, allFrames }: Props) {
+export function PreviewScreen({ state, frame, dispatch }: Props) {
   const canvasRef = useRef<CompositeCanvasHandle>(null);
   const [saveState, setSaveState] = useState<SaveState>('pending');
   const [savedId, setSavedId] = useState<string | null>(null);
@@ -110,35 +109,6 @@ export function PreviewScreen({ state, frame, dispatch, allFrames }: Props) {
         {saveState === 'failed' && (
           <span className="warning">Couldn't save to gallery. Download still works.</span>
         )}
-      </div>
-
-      <div className="frame-swap" aria-label="Try another frame">
-        <span className="frame-swap-label">Try another frame</span>
-        <ul className="frame-swap-strip">
-          {allFrames.map((f) => (
-            <li key={f.id}>
-              <button
-                type="button"
-                className={`frame-swap-tile ${f.id === frame.id ? 'active' : ''}`}
-                onClick={() => {
-                  // Re-save flag flips so next mount auto-saves the new composite.
-                  savedOnceRef.current = false;
-                  setSaveState('pending');
-                  setSavedId(null);
-                  dispatch({
-                    type: 'swapFrame',
-                    frameId: f.id,
-                    slotCount: f.slots.length,
-                  });
-                }}
-                aria-label={f.name}
-                title={f.name}
-              >
-                <img src={f.thumbnail} alt="" loading="lazy" />
-              </button>
-            </li>
-          ))}
-        </ul>
       </div>
 
       <div className="preview-actions">

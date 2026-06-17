@@ -41,6 +41,16 @@
   50%      { transform: scale(1.04); }
 }
 
+@keyframes pb-swap-source-pulse {
+  0%, 100% { box-shadow: 0 0 0 6px rgba(255, 91, 110, 0.30); }
+  50%      { box-shadow: 0 0 0 12px rgba(255, 91, 110, 0.10); }
+}
+
+@keyframes pb-swap-target-pulse {
+  0%, 100% { background-color: rgba(255, 91, 110, 0.06); }
+  50%      { background-color: rgba(255, 91, 110, 0.18); }
+}
+
 /* --- Animation classes --------------------------------------------------- */
 
 .fade-in {
@@ -569,6 +579,22 @@
 
 .slot-preview {
   background: rgba(255, 255, 255, 0.04);
+  /* Suppress the native click-drag selection highlight (the blue rubber-band
+     halo on desktop). Pointer events are unaffected, so our drag still works. */
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+.slot-preview img {
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.slot-empty {
+  background: rgba(0, 0, 0, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .slot-empty::after {
   content: '';
@@ -576,9 +602,136 @@
   inset: 0;
   background: repeating-linear-gradient(
     45deg,
-    rgba(0, 0, 0, 0.08) 0 8px,
+    rgba(0, 0, 0, 0.06) 0 8px,
     transparent 8px 16px
   );
+  pointer-events: none;
+}
+.slot-tappable {
+  cursor: pointer;
+}
+.slot-tappable.slot-empty:hover {
+  background: var(--accent-soft);
+}
+.slot-outlined {
+  outline: 4px solid var(--accent);
+  outline-offset: -4px;
+  box-shadow: 0 0 0 6px rgba(255, 91, 110, 0.18);
+  cursor: grab;
+}
+.slot-outlined:active {
+  cursor: grabbing;
+}
+
+/* Swap-mode source: the slot whose photo will move. Pulsing accent ring +
+   a "Moving" pill in the corner. The pill is a pseudo-element so it sits
+   above the image without interfering with pointer events. */
+.slot-swap-source {
+  outline: 4px solid var(--accent);
+  outline-offset: -4px;
+  cursor: pointer;
+  animation: pb-swap-source-pulse 1.4s ease-in-out infinite;
+}
+.slot-swap-source::before {
+  content: '⇄ Moving';
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: 2;
+  box-shadow: var(--shadow-card);
+}
+
+/* Swap-mode target: any other slot that's a valid drop destination.
+   Dashed outline + a soft pulsing wash so the eye reads it as tappable. */
+.slot-swap-target {
+  outline: 3px dashed var(--accent);
+  outline-offset: -3px;
+  cursor: pointer;
+  animation: pb-swap-target-pulse 1.4s ease-in-out infinite;
+}
+.slot-swap-target:hover {
+  outline-style: solid;
+}
+
+.slot-menu-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.slot-menu-actions .btn {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Persistent bar that replaces the frame-swap strip while a slot swap is
+   in progress. Always visible at the bottom of the Adjust screen
+   regardless of scroll position. */
+.swap-mode-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 2px solid var(--accent);
+  border-radius: var(--radius-md);
+  background: var(--accent-soft);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: var(--shadow-card);
+  position: sticky;
+  bottom: 8px;
+  z-index: 5;
+}
+.swap-mode-text {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+.swap-mode-pill {
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.slot-empty-cta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-weight: 700;
+  pointer-events: none;
+}
+.slot-empty-plus {
+  font-size: 36px;
+  line-height: 1;
+  color: var(--accent);
+}
+.slot-empty-label {
+  font-size: 13px;
+  letter-spacing: 0.5px;
 }
 
 /* --- Preview screen ------------------------------------------------------ */
@@ -874,6 +1027,11 @@
   /* Single-finger vertical swipe scrolls the page. Drag and pinch still
      reach our handlers. */
   touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.editor-frame img {
+  -webkit-user-drag: none;
 }
 
 .editor-slot {
