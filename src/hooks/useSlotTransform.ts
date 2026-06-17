@@ -22,7 +22,7 @@ export function useSlotTransform(
     onPointerMove: (e: React.PointerEvent) => void;
     onPointerUp: (e: React.PointerEvent) => void;
     onPointerCancel: (e: React.PointerEvent) => void;
-    style: React.CSSProperties;
+    onWheel: (e: React.WheelEvent) => void;
   };
   reset: () => void;
 } {
@@ -102,13 +102,28 @@ export function useSlotTransform(
 
   const reset = useCallback(() => onChange(identityTransform), [onChange]);
 
+  const onWheel = useCallback(
+    (e: React.WheelEvent) => {
+      // Desktop trackpad scroll / mouse wheel → zoom around the slot's center.
+      const dy = e.deltaY;
+      if (dy === 0) return;
+      const factor = dy < 0 ? 1.1 : 1 / 1.1;
+      const current = transformRef.current;
+      onChange({
+        ...current,
+        scale: clamp(current.scale * factor, MIN_SCALE, MAX_SCALE),
+      });
+    },
+    [onChange],
+  );
+
   return {
     bind: {
       onPointerDown,
       onPointerMove,
       onPointerUp: endPointer,
       onPointerCancel: endPointer,
-      style: { touchAction: 'none' },
+      onWheel,
     },
     reset,
   };

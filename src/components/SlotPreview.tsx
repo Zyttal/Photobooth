@@ -53,10 +53,20 @@ export function SlotPreview({
     pointerEvents: interactive ? 'none' : 'auto',
   };
 
-  const handlers = interactive ? bind : undefined;
-
   return (
-    <div className="slot-preview" style={style} {...handlers}>
+    <div
+      className="slot-preview"
+      style={style}
+      {...(interactive
+        ? {
+            onPointerDown: bind.onPointerDown,
+            onPointerMove: bind.onPointerMove,
+            onPointerUp: bind.onPointerUp,
+            onPointerCancel: bind.onPointerCancel,
+            onWheel: bind.onWheel,
+          }
+        : {})}
+    >
       <img src={slotImage.sourceUrl} alt="" style={imgStyle} draggable={false} />
     </div>
   );
