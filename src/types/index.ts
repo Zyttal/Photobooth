@@ -47,7 +47,7 @@ export type SlotImage = {
   transform: SlotTransform;
 };
 
-export type AppStep = 'home' | 'capture' | 'adjust' | 'preview' | 'gallery';
+export type AppStep = 'home' | 'capture' | 'adjust' | 'preview' | 'gallery' | 'edit';
 
 export type AppState = {
   step: AppStep;

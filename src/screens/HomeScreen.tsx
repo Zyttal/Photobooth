@@ -77,6 +77,16 @@ export function HomeScreen({ dispatch }: Props) {
           />
         ))}
       </section>
+
+      <footer className="home-footer">
+        <button
+          type="button"
+          className="text-link"
+          onClick={() => dispatch({ type: 'goto', step: 'edit' })}
+        >
+          Calibrate frame slots
+        </button>
+      </footer>
     </div>
   );
 }

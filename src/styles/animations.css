@@ -706,6 +706,246 @@
   text-align: center;
 }
 
+/* --- Frame editor (slot calibration) ------------------------------------ */
+
+.editor-screen {
+  gap: 12px;
+}
+.editor-hint {
+  text-align: center;
+}
+.editor-frame-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.editor-frame-pick {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+.editor-frame-pick-name {
+  font-family: var(--font-display);
+  font-size: 18px;
+}
+.editor-frame-pick-meta {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.editor-stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  padding: 8px;
+}
+.editor-frame {
+  position: relative;
+  background: #fff;
+  border: 3px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  touch-action: none;
+}
+
+.editor-slot {
+  position: absolute;
+  border: 2px dashed var(--accent);
+  background: rgba(255, 91, 110, 0.12);
+  cursor: move;
+  touch-action: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  z-index: 3;
+}
+.editor-slot.selected {
+  border-color: var(--text);
+  border-style: solid;
+  background: rgba(31, 36, 48, 0.05);
+  z-index: 4;
+}
+.editor-slot-label {
+  position: absolute;
+  top: -12px;
+  left: -2px;
+  background: var(--text);
+  color: var(--bg);
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.editor-handle {
+  position: absolute;
+  background: var(--accent);
+  border: 2px solid var(--text);
+  border-radius: 4px;
+  touch-action: none;
+}
+.editor-handle.corner {
+  width: 16px;
+  height: 16px;
+  cursor: nwse-resize;
+}
+.editor-handle.edge {
+  background: var(--surface);
+}
+.editor-handle.nw {
+  top: -8px;
+  left: -8px;
+}
+.editor-handle.ne {
+  top: -8px;
+  right: -8px;
+  cursor: nesw-resize;
+}
+.editor-handle.sw {
+  bottom: -8px;
+  left: -8px;
+  cursor: nesw-resize;
+}
+.editor-handle.se {
+  bottom: -8px;
+  right: -8px;
+}
+.editor-handle.n,
+.editor-handle.s {
+  left: 50%;
+  width: 24px;
+  height: 10px;
+  margin-left: -12px;
+  cursor: ns-resize;
+}
+.editor-handle.n {
+  top: -5px;
+}
+.editor-handle.s {
+  bottom: -5px;
+}
+.editor-handle.e,
+.editor-handle.w {
+  top: 50%;
+  width: 10px;
+  height: 24px;
+  margin-top: -12px;
+  cursor: ew-resize;
+}
+.editor-handle.e {
+  right: -5px;
+}
+.editor-handle.w {
+  left: -5px;
+}
+
+.editor-slot-inputs {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.editor-slot-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.editor-slot-tab {
+  font-family: inherit;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--border-soft);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.editor-slot-tab.active {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
+.editor-slot-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 10px;
+}
+.editor-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+.editor-field input {
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  padding: 8px 10px;
+  border: 2px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  background: var(--bg-elev);
+}
+.editor-field input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.editor-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+.editor-output {
+  background: var(--text);
+  color: var(--bg);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  margin: 0;
+  font-family: 'Menlo', 'Consolas', 'Liberation Mono', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.home-footer {
+  margin-top: auto;
+  padding-top: 16px;
+  text-align: center;
+}
+.text-link {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 13px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.text-link:hover {
+  color: var(--accent);
+}
+
 /* --- Mobile breakpoints -------------------------------------------------- */
 
 @media (max-width: 480px) {

@@ -6,6 +6,7 @@ import { CaptureScreen } from './screens/CaptureScreen';
 import { AdjustScreen } from './screens/AdjustScreen';
 import { PreviewScreen } from './screens/PreviewScreen';
 import { GalleryScreen } from './screens/GalleryScreen';
+import { FrameEditorScreen } from './screens/FrameEditorScreen';
 
 function App() {
   const [state, dispatch] = useReducer(appReducer, initialState);
@@ -24,6 +25,7 @@ function App() {
         <PreviewScreen state={state} frame={frame} dispatch={dispatch} />
       )}
       {state.step === 'gallery' && <GalleryScreen dispatch={dispatch} />}
+      {state.step === 'edit' && <FrameEditorScreen dispatch={dispatch} />}
     </div>
   );
 }
