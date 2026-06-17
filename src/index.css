@@ -1,29 +1,50 @@
 @import './styles/animations.css';
 
-:root {
-  --bg: #0f0f12;
-  --bg-elev: #1a1a20;
-  --surface: #23232b;
-  --text: #f4f4f7;
-  --text-muted: #a0a0ac;
-  --border: #2e2e38;
-  --accent: #ff5a8a;
-  --accent-strong: #ff3870;
-  --danger: #ff5252;
-  --danger-strong: #d32f2f;
+/* ----------------------------------------------------------------------------
+ * Theme — "Snoopy style". Cream + classic comic palette, rounded shapes,
+ * friendly system fonts. All system-stack — no external font requests, which
+ * keeps the privacy promise intact.
+ * --------------------------------------------------------------------------*/
 
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
+:root {
+  --bg: #fbf6e9;
+  --bg-elev: #fffaee;
+  --surface: #ffffff;
+  --text: #1f2430;
+  --text-muted: #6b6e78;
+  --border: #1f2430;
+  --border-soft: #e6dfca;
+
+  --accent: #ff5b6e;
+  --accent-strong: #ec3848;
+  --accent-soft: #ffd9dd;
+
+  --secondary: #ffd23f;
+  --tertiary: #5dade2;
+
+  --danger: #d63838;
+  --danger-strong: #b32424;
+
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --radius-pill: 999px;
+
+  --shadow-card: 4px 6px 0 #1f2430;
+  --shadow-card-hover: 6px 8px 0 #1f2430;
 
   --anim-fast: 120ms;
-  --anim-base: 250ms;
+  --anim-base: 260ms;
   --anim-slow: 600ms;
 
-  font-family: -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto,
-    Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  color-scheme: dark;
+  /* Comic / handwriting feel without network fetches. */
+  --font-body: 'Quicksand', 'Nunito', 'Avenir Next Rounded', 'Comfortaa', system-ui, -apple-system, sans-serif;
+  --font-display: 'Bradley Hand', 'Marker Felt', 'Chalkboard SE', 'Comic Sans MS', cursive;
+
+  font-family: var(--font-body);
+  font-weight: 500;
+  line-height: 1.45;
+  color-scheme: light;
   color: var(--text);
   background-color: var(--bg);
   -webkit-font-smoothing: antialiased;
@@ -48,6 +69,12 @@ body,
 
 body {
   overscroll-behavior: none;
+  background:
+    radial-gradient(circle at 12% 18%, #ffe8a3 0 14px, transparent 15px),
+    radial-gradient(circle at 88% 36%, #ffd1d6 0 10px, transparent 11px),
+    radial-gradient(circle at 22% 78%, #bde3ff 0 12px, transparent 13px),
+    radial-gradient(circle at 78% 84%, #cdebc8 0 16px, transparent 17px),
+    var(--bg);
 }
 
 button {

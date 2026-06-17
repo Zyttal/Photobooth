@@ -7,9 +7,11 @@ import { FlashOverlay } from './FlashOverlay';
 type Props = {
   onCapture: (blob: Blob) => void;
   countdownSeconds?: number;
+  /** Aspect ratio (width / height) to center-crop the capture to. */
+  targetAspect?: number;
 };
 
-export function CameraView({ onCapture, countdownSeconds = 3 }: Props) {
+export function CameraView({ onCapture, countdownSeconds = 3, targetAspect }: Props) {
   const { state, videoRef, switchFacing } = useCamera(true);
   const [counting, setCounting] = useState(false);
   const [flashing, setFlashing] = useState(false);
@@ -27,12 +29,12 @@ export function CameraView({ onCapture, countdownSeconds = 3 }: Props) {
     if (!video) return;
     setFlashing(true);
     try {
-      const blob = await captureFromVideo(video, { mirror });
+      const blob = await captureFromVideo(video, { mirror, targetAspect });
       onCapture(blob);
     } catch (err) {
       console.error('Capture failed', err);
     }
-  }, [videoRef, mirror, onCapture]);
+  }, [videoRef, mirror, onCapture, targetAspect]);
 
   if (state.status === 'denied') {
     return (
@@ -52,9 +54,13 @@ export function CameraView({ onCapture, countdownSeconds = 3 }: Props) {
     );
   }
 
+  // The stage's visible region matches what the capture will encode.
+  // Without targetAspect, default to 4:3 for a familiar viewfinder shape.
+  const stageAspect = targetAspect && targetAspect > 0 ? targetAspect : 4 / 3;
+
   return (
     <div className="camera-view">
-      <div className="camera-stage">
+      <div className="camera-stage" style={{ aspectRatio: stageAspect }}>
         <video
           ref={videoRef}
           autoPlay

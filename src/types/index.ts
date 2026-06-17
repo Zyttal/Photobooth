@@ -23,9 +23,12 @@ export type FrameConfig = {
   id: string;
   name: string;
   thumbnail: string;
-  overlay: string;
+  /** Optional: transparent PNG/SVG drawn ON TOP of slot images. */
+  overlay?: string;
   output: { width: number; height: number };
   slots: SlotConfig[];
+  /** Drawn under slot images. Use this when the frame artwork IS the
+   *  background (slot windows are openings in a full-bleed design). */
   background?: FrameBackground;
   decorations?: FrameDecoration[];
   revealAnimation?: 'polaroid-develop' | 'strip-print' | 'fade-in' | string;

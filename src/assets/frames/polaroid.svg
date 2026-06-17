@@ -1,15 +1,30 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 960" width="800" height="960">
   <defs>
-    <style>
-      .cap { font-family: 'Caveat', 'Brush Script MT', cursive; fill: #2a2a2a; }
-    </style>
-    <linearGradient id="shadow" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#000" stop-opacity="0.18"/>
+    <linearGradient id="topShade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#000" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="bottomShade" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#000" stop-opacity="0.10"/>
       <stop offset="1" stop-color="#000" stop-opacity="0"/>
     </linearGradient>
   </defs>
-  <!-- subtle inner shadow at the top of the slot -->
-  <rect x="60" y="60" width="680" height="20" fill="url(#shadow)"/>
-  <!-- caption area placeholder text -->
-  <text x="400" y="870" text-anchor="middle" class="cap" font-size="48" opacity="0.55">memories ♡</text>
+
+  <!-- Inner shadows around the slot give it depth -->
+  <rect x="60" y="60"  width="680" height="22" fill="url(#topShade)"/>
+  <rect x="60" y="718" width="680" height="22" fill="url(#bottomShade)"/>
+
+  <!-- Caption: friendlier handwriting + accent doodle. -->
+  <g transform="translate(400 855)" font-family="'Bradley Hand', 'Comic Sans MS', 'Marker Felt', cursive">
+    <text text-anchor="middle" font-size="48" fill="#1f1f23">today, captured ✿</text>
+    <text text-anchor="middle" y="48" font-size="22" fill="#7a7770" letter-spacing="3">— photobooth —</text>
+  </g>
+
+  <!-- Tiny corner doodles for warmth -->
+  <g fill="#ff7a9b" opacity="0.85">
+    <circle cx="100" cy="100" r="6"/>
+    <circle cx="700" cy="100" r="6"/>
+    <circle cx="100" cy="700" r="6"/>
+    <circle cx="700" cy="700" r="6"/>
+  </g>
 </svg>

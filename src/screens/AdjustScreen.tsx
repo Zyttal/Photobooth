@@ -62,6 +62,17 @@ export function AdjustScreen({ state, frame, dispatch }: Props) {
               : {}),
           }}
         >
+          {frame.background && 'image' in frame.background && (
+            <img
+              src={frame.background.image}
+              alt=""
+              className="frame-background"
+              style={{
+                width: frame.output.width * scale,
+                height: frame.output.height * scale,
+              }}
+            />
+          )}
           {frame.slots.map((slot, i) => (
             <SlotPreview
               key={i}
@@ -74,15 +85,17 @@ export function AdjustScreen({ state, frame, dispatch }: Props) {
               }
             />
           ))}
-          <img
-            src={frame.overlay}
-            alt=""
-            className="frame-overlay"
-            style={{
-              width: frame.output.width * scale,
-              height: frame.output.height * scale,
-            }}
-          />
+          {frame.overlay && (
+            <img
+              src={frame.overlay}
+              alt=""
+              className="frame-overlay"
+              style={{
+                width: frame.output.width * scale,
+                height: frame.output.height * scale,
+              }}
+            />
+          )}
         </div>
       </div>
     </div>

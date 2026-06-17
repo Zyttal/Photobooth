@@ -1,5 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 960" width="400" height="480">
   <rect width="800" height="960" fill="#f4f1ea"/>
   <rect x="60" y="60" width="680" height="680" fill="#c8c4bd"/>
-  <text x="400" y="870" text-anchor="middle" font-family="Brush Script MT, cursive" font-size="48" fill="#2a2a2a" opacity="0.55">memories ♡</text>
+  <g fill="#ff7a9b">
+    <circle cx="100" cy="100" r="6"/>
+    <circle cx="700" cy="100" r="6"/>
+    <circle cx="100" cy="700" r="6"/>
+    <circle cx="700" cy="700" r="6"/>
+  </g>
+  <text x="400" y="855" text-anchor="middle" font-family="Bradley Hand, Comic Sans MS, cursive" font-size="48" fill="#1f1f23">today, captured ✿</text>
 </svg>

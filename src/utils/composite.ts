@@ -76,8 +76,10 @@ export async function drawComposite(
     }
   }
 
-  const overlay = await fileToImage(frame.overlay);
-  ctx.drawImage(overlay, 0, 0, width, height);
+  if (frame.overlay) {
+    const overlay = await fileToImage(frame.overlay);
+    ctx.drawImage(overlay, 0, 0, width, height);
+  }
 
   return new Promise<Blob>((resolve, reject) => {
     canvas.toBlob(

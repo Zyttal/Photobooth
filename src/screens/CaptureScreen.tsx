@@ -178,7 +178,14 @@ export function CaptureScreen({ state, frame, dispatch }: Props) {
           </div>
 
           {mode === 'camera' ? (
-            <CameraView onCapture={handleCapture} />
+            <CameraView
+              onCapture={handleCapture}
+              targetAspect={
+                frame.slots[activeSlot]
+                  ? frame.slots[activeSlot].width / frame.slots[activeSlot].height
+                  : undefined
+              }
+            />
           ) : (
             <div className="upload-area">
               <input
