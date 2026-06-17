@@ -119,6 +119,9 @@ export function HomeScreen({ dispatch, allFrames, customIds, onRemoveCustom }: P
         >
           Made by Zyttal
         </a>
+        <span className="app-version" aria-label={`Version ${__APP_VERSION__}`}>
+          v{__APP_VERSION__}
+        </span>
       </footer>
 
       {confirmDelete && (

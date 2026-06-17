@@ -36,7 +36,10 @@ export function SlotPreview({
     height: slot.height * scale,
     overflow: 'hidden',
     transform: slot.rotation ? `rotate(${slot.rotation}deg)` : undefined,
-    touchAction: interactive ? 'none' : undefined,
+    // 'pan-y' lets a single-finger vertical swipe scroll the page through
+    // the slot. Horizontal drag still becomes a reposition, and a two-finger
+    // pinch is still consumed by our zoom handler.
+    touchAction: interactive ? 'pan-y' : undefined,
   };
 
   if (!slotImage) {

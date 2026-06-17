@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import pkg from './package.json' with { type: 'json' }
 
 // https://vite.dev/config/
 // Production builds are served from https://zyttal.github.io/Photobooth/,
@@ -8,4 +9,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig(({ command }) => ({
   plugins: [react()],
   base: command === 'build' ? '/Photobooth/' : '/',
+  define: {
+    __APP_VERSION__: JSON.stringify(pkg.version),
+  },
 }))
