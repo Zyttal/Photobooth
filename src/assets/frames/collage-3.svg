@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <style>
+      .star { fill: #fff; opacity: 0.85; }
+      .head { font-family: 'Courier New', monospace; font-weight: bold; fill: #fff; }
+    </style>
+  </defs>
+  <!-- Title in the corner -->
+  <text x="40" y="40" class="head" font-size="22" letter-spacing="4">★ TRIO</text>
+  <text x="40" y="62" class="head" font-size="12" letter-spacing="3" opacity="0.7">a three-photo set</text>
+  <!-- A few decorative stars sprinkled in the gaps -->
+  <text x="1160" y="40" text-anchor="end" class="head" font-size="14" letter-spacing="3" opacity="0.7">photobooth</text>
+  <circle cx="610" cy="400" r="6" class="star"/>
+  <circle cx="610" cy="380" r="3" class="star"/>
+  <circle cx="610" cy="420" r="3" class="star"/>
+  <circle cx="1180" cy="780" r="6" class="star"/>
+  <circle cx="1170" cy="775" r="3" class="star"/>
+</svg>

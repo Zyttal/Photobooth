@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 960" width="800" height="960">
+  <defs>
+    <style>
+      .cap { font-family: 'Caveat', 'Brush Script MT', cursive; fill: #2a2a2a; }
+    </style>
+    <linearGradient id="shadow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#000" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <!-- subtle inner shadow at the top of the slot -->
+  <rect x="60" y="60" width="680" height="20" fill="url(#shadow)"/>
+  <!-- caption area placeholder text -->
+  <text x="400" y="870" text-anchor="middle" class="cap" font-size="48" opacity="0.55">memories ♡</text>
+</svg>
