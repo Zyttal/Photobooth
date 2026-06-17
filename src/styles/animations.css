@@ -742,10 +742,40 @@
 .editor-stage {
   flex: 1;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   min-height: 50vh;
+  max-height: 70vh;
   padding: 8px;
+  overflow: auto;
+  background: var(--bg);
+  border: 2px solid var(--border-soft);
+  border-radius: var(--radius-md);
+}
+
+.editor-zoombar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  align-self: center;
+  background: var(--surface);
+  border: 2px solid var(--border-soft);
+  border-radius: var(--radius-pill);
+  padding: 4px 12px;
+}
+.editor-zoombar-hint {
+  font-size: 12px;
+  margin-left: 4px;
+}
+.editor-zoombar .btn-small {
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 1;
+  padding: 4px 12px;
+}
+.editor-zoombar .text-link {
+  min-width: 56px;
+  text-align: center;
 }
 .editor-frame {
   position: relative;

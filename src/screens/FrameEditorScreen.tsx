@@ -92,13 +92,16 @@ function EditorForFrame({
   onHome: () => void;
 }) {
   const stageRef = useRef<HTMLDivElement | null>(null);
-  const [scale, setScale] = useState(1);
+  const [fitScale, setFitScale] = useState(1);
+  const [userZoom, setUserZoom] = useState(1);
   const [tracked, setTracked] = useState<{ frameId: string; slots: SlotConfig[] }>(
     () => ({ frameId: frame.id, slots: frame.slots }),
   );
   const [selected, setSelected] = useState(0);
   const [copied, setCopied] = useState(false);
   const dragRef = useRef<DragState | null>(null);
+
+  const scale = fitScale * userZoom;
 
   // Reset local slot state whenever the editor opens a different frame.
   if (frame.id !== tracked.frameId) {
@@ -124,12 +127,16 @@ function EditorForFrame({
         el.clientWidth / frame.output.width,
         el.clientHeight / frame.output.height,
       );
-      setScale(fit > 0 ? fit : 1);
+      setFitScale(fit > 0 ? fit : 1);
     }
     measure();
     window.addEventListener('resize', measure);
     return () => window.removeEventListener('resize', measure);
   }, [frame]);
+
+  const zoomOut = useCallback(() => setUserZoom((z) => Math.max(0.5, z / 1.25)), []);
+  const zoomIn = useCallback(() => setUserZoom((z) => Math.min(8, z * 1.25)), []);
+  const zoomReset = useCallback(() => setUserZoom(1), []);
 
   const updateSlot = useCallback(
     (index: number, patch: Partial<SlotConfig>) => {
@@ -257,6 +264,36 @@ function EditorForFrame({
         Drag a slot to move. Drag the corner or edge handles to resize. Click a
         slot to select it, then fine-tune the values below.
       </p>
+
+      <div className="editor-zoombar">
+        <button
+          type="button"
+          className="btn btn-ghost btn-small"
+          onClick={zoomOut}
+          aria-label="Zoom out"
+        >
+          −
+        </button>
+        <button
+          type="button"
+          className="text-link"
+          onClick={zoomReset}
+          title="Reset zoom"
+        >
+          {Math.round(userZoom * 100)}%
+        </button>
+        <button
+          type="button"
+          className="btn btn-ghost btn-small"
+          onClick={zoomIn}
+          aria-label="Zoom in"
+        >
+          +
+        </button>
+        <span className="muted editor-zoombar-hint">
+          Editor zoom — scroll the stage to pan when zoomed in.
+        </span>
+      </div>
 
       <div ref={stageRef} className="editor-stage">
         <div
