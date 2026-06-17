@@ -1,32 +1,27 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
+/**
+ * Wrap a Blob in an object URL. Returns null until the URL is ready.
+ *
+ * Revoke is delayed past the next tick so React StrictMode's
+ * double-mount in dev doesn't tear down the URL the browser is mid-fetch on.
+ * In production (no double-mount) the delay is harmless.
+ */
 export function useObjectUrl(source: Blob | null | undefined): string | null {
-  const [tracked, setTracked] = useState<{
-    src: Blob | null | undefined;
-    url: string | null;
-  }>(() => ({
-    src: source,
-    url: source ? URL.createObjectURL(source) : null,
-  }));
+  const [url, setUrl] = useState<string | null>(null);
 
-  if (source !== tracked.src) {
-    if (tracked.url) URL.revokeObjectURL(tracked.url);
-    setTracked({
-      src: source,
-      url: source ? URL.createObjectURL(source) : null,
-    });
-  }
-
-  const urlRef = useRef<string | null>(tracked.url);
   useEffect(() => {
-    urlRef.current = tracked.url;
-  }, [tracked.url]);
-  useEffect(
-    () => () => {
-      if (urlRef.current) URL.revokeObjectURL(urlRef.current);
-    },
-    [],
-  );
+    if (!source) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setUrl(null);
+      return;
+    }
+    const next = URL.createObjectURL(source);
+    setUrl(next);
+    return () => {
+      window.setTimeout(() => URL.revokeObjectURL(next), 1500);
+    };
+  }, [source]);
 
-  return tracked.url;
+  return url;
 }

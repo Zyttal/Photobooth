@@ -1,20 +1,24 @@
 import { useEffect, useState } from 'react';
 import type { Action } from '../state/appReducer';
-import { frames } from '../config/frames';
+import type { FrameConfig } from '../types';
 import { FrameCard } from '../components/FrameCard';
 import { listPhotos } from '../utils/storage';
 
 type Props = {
   dispatch: React.Dispatch<Action>;
+  allFrames: FrameConfig[];
+  customIds: Set<string>;
+  onRemoveCustom: (id: string) => Promise<void>;
 };
 
 const PRIVACY_DISMISSED_KEY = 'photobooth.privacyDismissed';
 
-export function HomeScreen({ dispatch }: Props) {
+export function HomeScreen({ dispatch, allFrames, customIds, onRemoveCustom }: Props) {
   const [privacyOpen, setPrivacyOpen] = useState(
     () => typeof window !== 'undefined' && localStorage.getItem(PRIVACY_DISMISSED_KEY) !== '1',
   );
   const [galleryCount, setGalleryCount] = useState<number | null>(null);
+  const [confirmDelete, setConfirmDelete] = useState<FrameConfig | null>(null);
 
   useEffect(() => {
     listPhotos()
@@ -63,18 +67,46 @@ export function HomeScreen({ dispatch }: Props) {
       )}
 
       <section className="frame-grid" aria-label="Choose a frame">
-        {frames.map((frame) => (
-          <FrameCard
-            key={frame.id}
-            frame={frame}
-            onSelect={() =>
-              dispatch({
-                type: 'selectFrame',
-                frameId: frame.id,
-                slotCount: frame.slots.length,
-              })
-            }
-          />
+        <button
+          type="button"
+          className="frame-card frame-card-add"
+          onClick={() => dispatch({ type: 'goto', step: 'add-frame' })}
+        >
+          <div className="frame-card-thumb frame-card-add-thumb">
+            <span aria-hidden="true">+</span>
+          </div>
+          <div className="frame-card-meta">
+            <span className="frame-card-name">Add a frame</span>
+            <span className="frame-card-slots">Upload your own</span>
+          </div>
+        </button>
+        {allFrames.map((frame) => (
+          <div key={frame.id} className="frame-card-wrap">
+            <FrameCard
+              frame={frame}
+              onSelect={() =>
+                dispatch({
+                  type: 'selectFrame',
+                  frameId: frame.id,
+                  slotCount: frame.slots.length,
+                })
+              }
+            />
+            {customIds.has(frame.id) && (
+              <button
+                type="button"
+                className="frame-card-delete"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setConfirmDelete(frame);
+                }}
+                aria-label={`Delete ${frame.name}`}
+                title="Delete this custom frame"
+              >
+                ✕
+              </button>
+            )}
+          </div>
         ))}
       </section>
 
@@ -84,9 +116,41 @@ export function HomeScreen({ dispatch }: Props) {
           className="text-link"
           onClick={() => dispatch({ type: 'goto', step: 'edit' })}
         >
-          Calibrate frame slots
+          Calibrate built-in frame slots
         </button>
       </footer>
+
+      {confirmDelete && (
+        <div className="modal" role="alertdialog" aria-modal="true">
+          <div className="modal-backdrop" onClick={() => setConfirmDelete(null)} />
+          <div className="modal-card confirm-card">
+            <h2 className="modal-title">Delete "{confirmDelete.name}"?</h2>
+            <p className="muted">
+              This removes the custom frame from this device. Saved photos already
+              made with it remain in your gallery.
+            </p>
+            <div className="modal-actions">
+              <button
+                type="button"
+                className="btn btn-ghost"
+                onClick={() => setConfirmDelete(null)}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="btn btn-danger-solid"
+                onClick={async () => {
+                  await onRemoveCustom(confirmDelete.id);
+                  setConfirmDelete(null);
+                }}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -260,6 +260,41 @@
   gap: 18px;
 }
 
+.frame-card-wrap {
+  position: relative;
+}
+.frame-card-delete {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  color: var(--danger);
+  font-weight: 800;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--anim-fast) ease, background-color var(--anim-fast) ease;
+  z-index: 2;
+}
+.frame-card-delete:hover {
+  background: var(--danger);
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.frame-card-add .frame-card-add-thumb {
+  font-family: var(--font-display);
+  font-size: 72px;
+  font-weight: 900;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-style: dashed;
+}
+
 .frame-card {
   display: flex;
   flex-direction: column;
@@ -960,6 +995,29 @@
   background: var(--text);
   color: var(--bg);
   border-color: var(--text);
+}
+.editor-slot-add {
+  color: var(--accent);
+  border-color: var(--accent) !important;
+}
+.editor-slot-add:hover {
+  background: var(--accent-soft);
+}
+.editor-slot-remove {
+  color: var(--danger);
+  border-color: var(--danger) !important;
+}
+.editor-slot-remove:hover {
+  background: var(--accent-soft);
+}
+.editor-name-field {
+  align-self: stretch;
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+}
+.editor-name-field input {
+  font-size: 18px;
 }
 .editor-slot-fields {
   display: grid;

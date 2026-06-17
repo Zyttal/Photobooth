@@ -47,7 +47,14 @@ export type SlotImage = {
   transform: SlotTransform;
 };
 
-export type AppStep = 'home' | 'capture' | 'adjust' | 'preview' | 'gallery' | 'edit';
+export type AppStep =
+  | 'home'
+  | 'capture'
+  | 'adjust'
+  | 'preview'
+  | 'gallery'
+  | 'edit'
+  | 'add-frame';
 
 export type AppState = {
   step: AppStep;
@@ -63,4 +70,21 @@ export type SavedPhoto = {
   frameName: string;
   blob: Blob;
   thumbnail: Blob;
+};
+
+/**
+ * A frame the user uploaded and configured themselves. Stored in IndexedDB.
+ * At runtime it gets materialized into a regular FrameConfig (blobs → object URLs).
+ */
+export type CustomFrame = {
+  id: string;
+  createdAt: number;
+  name: string;
+  output: { width: number; height: number };
+  slots: SlotConfig[];
+  /** The uploaded image, rendered as background of the frame. */
+  background: Blob;
+  /** Downscaled thumbnail (~256px) for the home grid. */
+  thumbnail: Blob;
+  revealAnimation?: string;
 };

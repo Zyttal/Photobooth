@@ -7,17 +7,17 @@ import { downloadBlob } from '../utils/download';
 import { makeThumbnail } from '../utils/thumbnail';
 import { savePhoto } from '../utils/storage';
 import { useShare } from '../hooks/useShare';
-import { frames } from '../config/frames';
 
 type Props = {
   state: AppState;
   frame: FrameConfig;
   dispatch: React.Dispatch<Action>;
+  allFrames: FrameConfig[];
 };
 
 type SaveState = 'pending' | 'saved' | 'failed';
 
-export function PreviewScreen({ state, frame, dispatch }: Props) {
+export function PreviewScreen({ state, frame, dispatch, allFrames }: Props) {
   const canvasRef = useRef<CompositeCanvasHandle>(null);
   const [saveState, setSaveState] = useState<SaveState>('pending');
   const [savedId, setSavedId] = useState<string | null>(null);
@@ -115,7 +115,7 @@ export function PreviewScreen({ state, frame, dispatch }: Props) {
       <div className="frame-swap" aria-label="Try another frame">
         <span className="frame-swap-label">Try another frame</span>
         <ul className="frame-swap-strip">
-          {frames.map((f) => (
+          {allFrames.map((f) => (
             <li key={f.id}>
               <button
                 type="button"
