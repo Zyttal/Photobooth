@@ -871,7 +871,9 @@
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-card);
   overflow: hidden;
-  touch-action: none;
+  /* Single-finger vertical swipe scrolls the page. Drag and pinch still
+     reach our handlers. */
+  touch-action: pan-y;
 }
 
 .editor-slot {
@@ -879,7 +881,7 @@
   border: 2px dashed var(--accent);
   background: rgba(255, 91, 110, 0.12);
   cursor: move;
-  touch-action: none;
+  touch-action: pan-y;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -1070,6 +1072,17 @@
   margin-top: auto;
   padding-top: 16px;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.app-version {
+  font-family: 'Menlo', 'Consolas', 'Liberation Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  opacity: 0.7;
+  letter-spacing: 0.5px;
 }
 .text-link {
   background: transparent;
