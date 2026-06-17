@@ -1,68 +1,96 @@
+@import './styles/animations.css';
+
+/* ----------------------------------------------------------------------------
+ * Theme: "Snoopy style". Cream + classic comic palette, rounded shapes,
+ * friendly system fonts. All system-stack. No external font requests, which
+ * keeps the privacy promise intact.
+ * --------------------------------------------------------------------------*/
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  --bg: #fbf6e9;
+  --bg-elev: #fffaee;
+  --surface: #ffffff;
+  --text: #1f2430;
+  --text-muted: #6b6e78;
+  --border: #1f2430;
+  --border-soft: #e6dfca;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  --accent: #ff5b6e;
+  --accent-strong: #ec3848;
+  --accent-soft: #ffd9dd;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
+  --secondary: #ffd23f;
+  --tertiary: #5dade2;
+
+  --danger: #d63838;
+  --danger-strong: #b32424;
+
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --radius-pill: 999px;
+
+  --shadow-card: 4px 6px 0 #1f2430;
+  --shadow-card-hover: 6px 8px 0 #1f2430;
+
+  --anim-fast: 120ms;
+  --anim-base: 260ms;
+  --anim-slow: 600ms;
+
+  /* Comic / handwriting feel without network fetches. */
+  --font-body: 'Quicksand', 'Nunito', 'Avenir Next Rounded', 'Comfortaa', system-ui, -apple-system, sans-serif;
+  --font-display: 'Bradley Hand', 'Marker Felt', 'Chalkboard SE', 'Comic Sans MS', cursive;
+
+  font-family: var(--font-body);
+  font-weight: 500;
+  line-height: 1.45;
+  color-scheme: light;
+  color: var(--text);
+  background-color: var(--bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
-a:hover {
-  color: #535bf2;
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  overscroll-behavior: none;
+  background:
+    radial-gradient(circle at 12% 18%, #ffe8a3 0 14px, transparent 15px),
+    radial-gradient(circle at 88% 36%, #ffd1d6 0 10px, transparent 11px),
+    radial-gradient(circle at 22% 78%, #bde3ff 0 12px, transparent 13px),
+    radial-gradient(circle at 78% 84%, #cdebc8 0 16px, transparent 17px),
+    var(--bg);
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.app {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
 }

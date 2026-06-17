@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 1800" width="200" height="600">
+  <rect width="600" height="1800" fill="#ffffff"/>
+  <rect x="40" y="40" width="520" height="390" fill="#d0d0d0"/>
+  <rect x="40" y="460" width="520" height="390" fill="#bcbcbc"/>
+  <rect x="40" y="880" width="520" height="390" fill="#a8a8a8"/>
+  <rect x="40" y="1300" width="520" height="390" fill="#949494"/>
+  <text x="300" y="28" text-anchor="middle" font-family="Courier New, monospace" font-weight="bold" font-size="20" fill="#1a1a1a" letter-spacing="6">PHOTOBOOTH</text>
+  <text x="300" y="1740" text-anchor="middle" font-family="Courier New, monospace" font-weight="bold" font-size="22" fill="#1a1a1a" letter-spacing="4">★  MEMORIES  ★</text>
+</svg>
